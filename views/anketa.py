@@ -1,7 +1,7 @@
 import flet as ft
 from controllers.user_add_data import add_new
-from controllers.user_read_data import read_data
-
+#from controllers.user_read_data import read_data
+# change (not important)
 class AnketaPage(ft.View):
   
   
@@ -12,20 +12,21 @@ class AnketaPage(ft.View):
     self.bgcolor = "#FFFFFF"
     self.page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
     
-    def resup(e: ft.FilePickerResultEvent):
-      print(e.files)
+    def resup( e: ft.FilePickerResultEvent):
+      print(e.data)
       print('entered')
-      self.anketa_image.src = e.files[0].path
-      page.update()
+      if e.files:
+        self.anketa_image.src = e.files[0].path
+        page.update()
 
     self.myfile = ft.FilePicker(on_result=resup)
     self.page.overlay.append(self.myfile)
 
-    
 
-    def open_searchbar(e):
-      page.open(self.experiment_container)
-      page.update()
+    def close_searchbar(e):
+      #self.experiment_container.open = False
+      e.page.close(self.experiment_container)
+      #e.page.close(self.experiment_container)
 
     self.anketa_image = ft.Image(
                     "women.jpg",
@@ -34,17 +35,8 @@ class AnketaPage(ft.View):
                     height=150,
                     border_radius=15,
                     )
-    self.experiment_container = ft.AlertDialog(
-      content=ft.Container(
-        content= ft.Column([
-          self.anketa_image,
-          ft.Text("Yooo mayooo mnau boldgooo emaieeee")
-        ]
-        )
-        
-        )
-
-    )
+    
+   
     self.user_name = ft.TextField(
                         hint_text = "Имя",
                         hint_style = ft.TextStyle(
@@ -113,17 +105,20 @@ class AnketaPage(ft.View):
                           # ))
                         )
 
-    self.user_city = ft.TextField(
-                      hint_text="ГОРОД",
-                      hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
-                      width=130,
-                      height = 40,
-                      text_align = "center", 
-                      border_radius=25,
-                      border_color = "#FFFFFF", 
-                      bgcolor = "#FFFFFF",
-                      on_focus= open_searchbar
-                    )
+    self.user_city = ft.Container(
+                    content = ft.Text(
+                      value="ГОРОД",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      text_align = "center",
+                      
+                    ),
+                    height=40,
+                    width=130,
+                    bgcolor="#FFFFFF",
+                    border_radius=25,
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.experiment_container)
+    )
     
     self.user_university = ft.TextField(
                             hint_text="УНИВЕРСИТЕТ",
@@ -180,17 +175,56 @@ class AnketaPage(ft.View):
         alignment = ft.alignment.center,
         on_click = lambda e: self.on_add_new(e)
       )
-       
-    self.button_check = ft.Container(
+    
+    self.button_confirm = ft.Container(
         border_radius = 25,
         expand = True,
         bgcolor = "#B9A9FC",
-        content = ft.Text("Check database", color = "white", size = 15),
-        padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-        margin= ft.margin.only(40, 0,40,40),
+        content = ft.Text("ПОДТВЕРДИТЬ ВЫБОР", color = "white", size = 15, font_family= "RussoOne-Regular",),
+        padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+        margin= ft.margin.only(20, 0,20,40),
         alignment = ft.alignment.center,
-        on_click = lambda e: self.did_mount()
+        on_click = close_searchbar
       )
+
+
+    self.experiment_container = ft.AlertDialog(
+      #modal= True,
+      bgcolor="#FFFFFF",
+      content=ft.Container(
+        height= 300,
+        content= ft.Column([
+          ft.SearchBar(
+            view_elevation=4,
+            bar_overlay_color="white",
+            bar_bgcolor="white",
+            bar_leading=ft.IconButton(icon="search", icon_color="#362D56"),
+            controls=[
+              ft.Checkbox(label="bogie")
+            ]
+          ),
+          self.anketa_image,
+          ft.Text("Buirtsa bari bolad"),
+          
+
+          ]
+        )
+      ),
+      actions=[
+        self.button_confirm,
+      ],
+
+    )
+    # self.button_check = ft.Container(
+    #     border_radius = 25,
+    #     expand = True,
+    #     bgcolor = "#B9A9FC",
+    #     content = ft.Text("Check database", color = "white", size = 15),
+    #     padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
+    #     margin= ft.margin.only(40, 0,40,40),
+    #     alignment = ft.alignment.center,
+    #     on_click = lambda e: self.did_mount()
+    #   )
 
 
     self.controls = [
@@ -286,12 +320,12 @@ class AnketaPage(ft.View):
         )
       )
     ]
-  def did_mount(self):
-    self.load()
+  # def did_mount(self):
+  #   self.load()
 
-  def load(self):
-    data_json = read_data()
-    print(data_json)
+  # def load(self):
+  #   data_json = read_data()
+  #   print(data_json)
 
   def on_add_new(self, e):
     try:

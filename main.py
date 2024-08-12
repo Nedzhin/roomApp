@@ -19,21 +19,12 @@ from views.blind import BlindPage
 from views.ankets import AnketsPage
 
 def main(page: ft.Page):
-  #page.theme = ft.ThemeMode.LIGHT
   page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
-  #page.adaptive = True
   page.window.max_height = 820
   page.window.max_width = 390
   page.window.width = 390
   page.window.height = 790
-  # page.window_height = 790
-  # page.window_width = 380
-  # page.window_max_width = 380
-  # page.window_max_height = 800
-  
-  #page.adaptive = True
-  # page.window_max_width = 400
-  # page.window_max_height = 850
+
   def change_navigation_destination(e: ft.TapEvent) -> None:
     if int(e.data) == 0:
       print("entered to blind")
@@ -90,14 +81,11 @@ def main(page: ft.Page):
     page.views.clear()
     if page.route == "/":
        page.go("/landing")
-       user_data = fetch_user_data()
-       print(user_data)
+       #user_data = fetch_user_data()
+       #print(user_data)
 
        
     if page.route == "/landing":
-      #print(get_user(request=requests))
-      #user_data = await fetch_user_data()
-      #print(user_data)
       landing = LandingPage(page)
       page.views.append(landing)
 
@@ -142,11 +130,9 @@ def main(page: ft.Page):
 
   page.on_route_change = router
   print(page.route)
-  page.go("/landing")
+  page.go("/")
   page.update()
 
-
-#ft.app(target=main, view=None, port=8000)
 
 if __name__ == '__main__':
     try:
@@ -157,11 +143,3 @@ if __name__ == '__main__':
         text = 'App not started'
         print(f'{text:*^30}')
 
-
-
-
-# app = flet_fastapi.app(main)
-# @app.get("/get-nik")
-# async def get_nik():
-#    user_data = {"user_id": 1234}
-#    return JSONResponse(content=user_data, media_type="application/json")
