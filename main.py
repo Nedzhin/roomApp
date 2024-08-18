@@ -13,6 +13,7 @@ from views.purpose import PurposePage
 from views.rent_var import RentVarPage
 from views.travel_var import TravelVarPage
 from views.rent_info import RentInfoPage
+#from views.rent_info_short import RentInfoShortPage
 from views.travel_info import TravelInfoPage
 from views.end_reg import EndRegPage
 from views.blind import BlindPage
@@ -109,6 +110,10 @@ def main(page: ft.Page):
       rent_info = RentInfoPage(page)
       page.views.append(rent_info)
     
+    # if page.route == "/rent_info_short":
+    #   rent_info = RentInfoShortPage(page)
+    #   page.views.append(rent_info)
+
     if page.route == "/travel_info":
       travel_info = TravelInfoPage(page)
       page.views.append(travel_info)

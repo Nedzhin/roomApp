@@ -1,8 +1,8 @@
 import flet as ft
 
-class RentInfoPage(ft.View):
+class RentInfoShortPage(ft.View):
   def __init__(self, page: ft.Page) -> None:
-    super().__init__(route = '/rent_info', padding = 0)
+    super().__init__(route = '/rent_info_long', padding = 0)
 
     self.page = page
     self.bgcolor = "#FFFFFF"
@@ -79,7 +79,7 @@ class RentInfoPage(ft.View):
                     bgcolor="#FFFFFF",
                     border_radius=25,
                     padding=ft.padding.only(0,15,0,0),
-                    on_click= lambda e: e.page.open(self.rent_region_popup)
+                    on_click= lambda e: e.page.open(self.rent_budget_popup)
     )
     
     self.rent_photos = ft.Container(
@@ -94,7 +94,6 @@ class RentInfoPage(ft.View):
                     bgcolor="#FFFFFF",
                     border_radius=25,
                     padding=ft.padding.only(0,15,0,0),
-                    visible=False,
                     on_click= lambda e: e.page.open(self.rent_budget_popup)
     )
     
@@ -110,8 +109,7 @@ class RentInfoPage(ft.View):
                     bgcolor="#FFFFFF",
                     border_radius=25,
                     padding=ft.padding.only(0,15,0,0),
-                    visible=False,
-                    on_click= lambda e: e.page.open(self.rent_dates_popup)
+                    on_click= lambda e: e.page.open(self.rent_budget_popup)
     )
     
     self.button_back = ft.Container(
@@ -353,14 +351,7 @@ class RentInfoPage(ft.View):
 
     def close_status_bar(e):
       e.page.close(self.rent_status_popup)
-      status_now = self.page.client_storage.get("user_rent_status")
-      self.rent_status.content.value = status_now
-      if status_now == "ЕСТЬ ЖИЛЬЁ, ИЩУ СОСЕДА":
-        self.rent_photos.visible = True
-        self.rent_dates.visible = True
-      else:
-        self.rent_photos.visible = False
-        self.rent_dates.visible = False
+      self.rent_status.content.value = self.page.client_storage.get("user_rent_status")
       page.update()
       
     self.button_confirm_status = ft.Container(
@@ -497,188 +488,6 @@ class RentInfoPage(ft.View):
     )
 
 
-    ### Region chosing
-    def close_searchbar_region(e):
-      e.page.close(self.rent_region_popup)
-      self.rent_region.content.value = self.page.client_storage.get("user_rent_region")
-      page.update()
-
-    self.button_confirm_region = ft.Container(
-        border_radius = 25,
-        expand = True,
-        bgcolor = "#B9A9FC",
-        content = ft.Text("ПОДТВЕРДИТЬ ВЫБОР", color = "white", size = 15, font_family= "RussoOne-Regular",),
-        padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
-        margin= ft.margin.only(20, 0,20,40),
-        alignment = ft.alignment.center,
-        on_click = close_searchbar_region
-      )
-
-    self.fake_region = ["america", "canada", "belarus", "almaty", "astana", "taraz", "aktobe", "tipa region"]
-
-    def get_value_region(e):
-      print(e.control.value)
-      e.page.client_storage.set("user_rent_region", e.control.value)
-
-
-    self.result_search_region = ft.Container(
-      visible=False,
-      height=150,
-      content=ft.RadioGroup(
-        
-        content=ft.Column(
-          height=100,
-          scroll=True,
-
-        ),
-        on_change= get_value_region
-      )
-    )
-
-    def show_results_region(e):
-      if e.data:
-        self.result_search_region.content.content.controls.clear()
-        self.result_search_region.visible = True
-
-        search_text = e.data.lower()
-        matching_regions = [city for city in self.fake_region if search_text in city.lower()]
-
-        for matched_region in matching_regions:
-          self.result_search_region.content.content.controls.append(
-            ft.Radio(
-              label=matched_region,
-              value=matched_region,
-              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
-              active_color="#D2BAE1",
-            )
-          )
-      else:
-        self.result_search_region.visible = False
-      
-      page.update()
-
-    self.search_bar_region = ft.Container(
-      height=40,
-      width = 284,
-      bgcolor="white",
-      border_radius=25,
-      border=ft.border.all( 1, "#D9CAE0" ),
-      content=ft.Row(
-        spacing=10,
-        vertical_alignment=ft.CrossAxisAlignment.CENTER,
-        controls = [
-          ft.VerticalDivider(width=2, color="transparent"),
-          ft.Icon(ft.icons.SEARCH_ROUNDED, size=18, opacity=0.9, color="#362D56"),
-          ft.TextField(
-            border_color="transparent",
-            height=20,
-            text_size=13,
-            content_padding=2,
-            cursor_color="#362D56",
-            cursor_width=1,
-            color="#362D56",
-            hint_text="ПОИСК",
-            hint_style=ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
-            on_change=show_results_region
-          )
-        ]
-      )
-    )
-
-    self.rent_region_popup = ft.AlertDialog(
-      bgcolor="#FFFFFF",
-      content=ft.Container(
-        height= 200,
-        width = 310,
-        content= ft.Column([
-          self.search_bar_region,
-          self.result_search_region,
-          ]
-        )
-      ),
-      actions=[
-        self.button_confirm_region,
-      ],
-
-    )
-
-    ### Dates Chosing
-
-    def close_dates_bar(e):
-      e.page.close(self.rent_dates_popup)
-      dates_picked_begin = self.rent_dates_popup.content.content.controls[2].controls[0].value
-      dates_picked_end = self.rent_dates_popup.content.content.controls[2].controls[1].value
-      self.page.client_storage.set("user_rent_dates",  dates_picked_begin + " - " + dates_picked_end)
-
-      self.rent_dates.content.value = self.page.client_storage.get("user_rent_dates")
-      page.update()
-      
-    self.button_confirm_dates = ft.Container(
-        border_radius = 25,
-        expand = True,
-        bgcolor = "#B9A9FC",
-        content = ft.Text("ДАЛЕЕ", color = "white", size = 15, font_family= "RussoOne-Regular",),
-        padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
-        margin= ft.margin.only(20, 0,20,40),
-        alignment = ft.alignment.center,
-        on_click = close_dates_bar
-      )
-
-    self.rent_dates_popup = ft.AlertDialog(
-      bgcolor="#FFFFFF",
-      content=ft.Container(
-        height= 140,
-        width=310,
-        content= ft.Column(
-          alignment="center",
-          horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-          controls=[
-          ft.Text("ВЫБЕРИТЕ ДАТЫ АРЕНДЫ", 
-                          size = 18, 
-                          text_align = "center",
-                          font_family= "RussoOne-Regular",
-                          style = ft.TextStyle(color="#362D56", 
-                                               size=18, 
-                                               weight=ft.FontWeight(ft.FontWeight.BOLD)
-                                               ),
-                  ),
-          ft.Divider(height=4, color="transparent" ),
-          ft.Row(
-            alignment="center",
-            controls=[
-              ft.TextField(
-                            hint_text="ОТ",
-                            hint_style = ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
-                            width=134,
-                            height=34,
-                            color="#000000",
-                            border_radius=25,
-                            border_color = "#D9CAE0", 
-                            bgcolor = "#FFFFFF",
-                            text_align="center",
-              ),
-              ft.TextField(
-                            hint_text="ДО",
-                            hint_style = ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
-                            width=134,
-                            height=34,
-                            color="#000000",
-                            border_radius=25,
-                            border_color = "#D9CAE0", 
-                            bgcolor = "#FFFFFF",
-                            text_align="center",
-              ),
-
-            ]
-          ),
-          ]
-        )
-      ),
-      actions=[
-        self.button_confirm_dates,
-      ],
-
-    )
 
     self.controls = [
       ft.SafeArea(

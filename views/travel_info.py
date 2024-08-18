@@ -8,72 +8,81 @@ class TravelInfoPage(ft.View):
     self.bgcolor = "#FFFFFF"
     self.page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
     
-    self.rent_date = ft.TextField(
-                      hint_text="Страна поездки",
-                      hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",),
-                      width=130,
-                      height = 40,
+    self.travel_country = ft.Container(
+                    content = ft.Text(
+                      value="Страна поездки",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
-                      border_radius=25,
-                      border_color = "#FFFFFF",
-                      color = "black",
-                      bgcolor="#FFFFFF"
-                    )
-    
-    self.rent_city = ft.TextField(
-                      hint_text="Город поездки",
-                      hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",), 
-                      width=130, 
-                      height = 40,
-                      text_align = "center",
-                      border_radius=25,
-                      border_color = "#FFFFFF", 
-                      bgcolor = "#FFFFFF",
-                    )
-    
-    self.rent_status = ft.TextField(
-                        hint_text="Статус на выбор", 
-                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",),
-                        width=130,
-                        height = 40,
-                        text_align = "center", 
-                        border_radius=25,
-                        border_color = "#FFFFFF", 
-                        bgcolor = "#FFFFFF",
-                      )
-    
-    self.rent_budget = ft.TextField(
-                        hint_text="Бюджет",
-                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",), 
-                        width=130,
-                        height = 40,
-                        text_align = "center", 
-                        border_radius=25,
-                        border_color = "#FFFFFF", 
-                        bgcolor = "#FFFFFF",
-                      )
-    
-    self.rent_photos = ft.TextField(
-                    hint_text="Фотографии недвижимости", 
-                    hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",),
-                    width=130,
-                    height = 40,
-                    text_align = "center", 
+                      
+                    ),
+                    height=57,
+                    width=153,
+                    bgcolor="#FFFFFF",
                     border_radius=25,
-                    border_color = "#FFFFFF", 
-                    bgcolor = "#FFFFFF",
-                    )
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.rent_country_popup)
+    )
     
-    self.rent_region = ft.TextField(
-                      hint_text="Районы",
-                      hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",), 
-                      width=130,
-                      height = 40,
-                      text_align = "center", 
-                      border_radius=25,
-                      border_color = "#FFFFFF", 
-                      bgcolor = "#FFFFFF",
-                    )
+    self.travel_city = ft.Container(
+                    content = ft.Text(
+                      value="Город поездки",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      text_align = "center",
+                      
+                    ),
+                    height=57,
+                    width=153,
+                    bgcolor="#FFFFFF",
+                    border_radius=25,
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.rent_country_popup)
+    )
+    
+    self.travel_dates = ft.Container(
+                    content = ft.Text(
+                      value="Даты (от-до)",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      text_align = "center",
+                      
+                    ),
+                    height=57,
+                    width=153,
+                    bgcolor="#FFFFFF",
+                    border_radius=25,
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.rent_country_popup)
+    )
+    
+    self.travel_longness = ft.Container(
+                    content = ft.Text(
+                      value="Длительность \nПоездки",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      text_align = "center",
+                      
+                    ),
+                    height=57,
+                    width=153,
+                    bgcolor="#FFFFFF",
+                    border_radius=25,
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.rent_country_popup)
+    )
+    
+    self.travel_budget = ft.Container(
+                    content = ft.Text(
+                      value="Дневной Бюджет \n(от-до)",
+                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      text_align = "center",
+                      
+                    ),
+                    height=57,
+                    width=153,
+                    bgcolor="#FFFFFF",
+                    border_radius=25,
+                    padding=ft.padding.only(0,15,0,0),
+                    on_click= lambda e: e.page.open(self.rent_country_popup)
+    )
+    
     
     self.button_back = ft.Container(
       border_radius = 25,
@@ -107,7 +116,7 @@ class TravelInfoPage(ft.View):
           padding=ft.padding.only(40,40,40,40),
           content= 
           ft.Column(
-            alignment = "spaceBetween",
+            alignment = "center",
             horizontal_alignment="center",
             controls = [
               ft.Column(
@@ -127,22 +136,21 @@ class TravelInfoPage(ft.View):
               ),
               ft.Row(
                 [
-                  self.rent_date,
-                  self.rent_city
+                  self.travel_country,
+                  self.travel_city
                 ],
                 alignment= ft.MainAxisAlignment.CENTER
               ),
               ft.Row(
                 [
-                  self.rent_status,
-                  self.rent_budget
+                  self.travel_dates,
+                  self.travel_longness
                 ],
                 alignment= ft.MainAxisAlignment.CENTER
               ),
               ft.Row(
                 [
-                  self.rent_photos,
-                  self.rent_region
+                  self.travel_budget
                 ],
                 alignment= ft.MainAxisAlignment.CENTER
               ),
