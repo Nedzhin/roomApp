@@ -9,12 +9,14 @@ class TravelVarPage(ft.View):
 
 
     self.button = ft.Container(
+      height=55,
+      width = 260,
       border_radius = 25,
       expand = True,
       bgcolor = "#B9A9FC",
       content = ft.Text("Назад", color = "white", size = 15, font_family= "RussoOne-Regular",),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+      margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/purpose')
     )
@@ -26,15 +28,14 @@ class TravelVarPage(ft.View):
           image_src="landing_back.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,20,20,20),
           content= 
           ft.Column(
             alignment = "spaceBetween",
             horizontal_alignment="center",
             controls = [
-              ft.Column(
-                alignment="center",
-                controls = [
+              ft.Container(           
+                content = 
                   ft.Text("ВЫБЕРЕТЕ НАИБОЛЕЕ \nПОДХОДЯЩУЮ \nКАТЕГОРИЮ", 
                           size = 16, 
                           text_align = "center",
@@ -43,9 +44,8 @@ class TravelVarPage(ft.View):
                                                size=18, 
                                                weight=ft.FontWeight(ft.FontWeight.BOLD)
                                                ),
-                  )
-                ],
-                horizontal_alignment = "center"
+                  ),
+                margin=ft.margin.only(0,60,0,0)    
               ),
               ft.Row(
                 [ 
@@ -61,14 +61,15 @@ class TravelVarPage(ft.View):
                       text_align="center",
                       ),
                     on_click= lambda e: e.page.go("/travel_info"),
-                    bgcolor="#907CDC",
-                    width=241,
-                    height=76,
-                    border_radius=25,
+                    bgcolor="#7160B3",
+                    width=245,
+                    height=90,
+                    border_radius=15,
                     padding=ft.Padding(0,15,0,0)
                   ),
                 ],
-                alignment= ft.MainAxisAlignment.CENTER
+                alignment= ft.MainAxisAlignment.CENTER,
+                vertical_alignment="center"
               ),
               ft.Row(
                 [ 
@@ -84,14 +85,15 @@ class TravelVarPage(ft.View):
                       text_align="center",
                       ),
                     on_click= lambda e: e.page.go("/travel_info"),
-                    bgcolor="#907CDC",
-                    width=241,
-                    height=76,
-                    border_radius=25,
-                    padding=ft.Padding(0,0,0,0)
+                    bgcolor="#7160B3",
+                    width=245,
+                    height=110,
+                    border_radius=15,
+                    padding=ft.Padding(0,15,0,0)
                   ),
                 ],
-                alignment= ft.MainAxisAlignment.CENTER
+                alignment= ft.MainAxisAlignment.CENTER,
+                vertical_alignment="center"
               ),
               ft.Row(
               [
@@ -99,7 +101,7 @@ class TravelVarPage(ft.View):
                 src = "travel_var1.png",
                 fit = ft.ImageFit.COVER,
                 animate_scale = ft.Animation(duration=600, curve=ft.AnimationCurve.EASE),
-                height=230,
+                height=160,
                 ),
               ],
               alignment= ft.MainAxisAlignment.CENTER,

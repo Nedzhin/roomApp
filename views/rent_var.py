@@ -8,14 +8,16 @@ class RentVarPage(ft.View):
     self.bgcolor = "#FFFFFF"
     self.page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
     
-    print(page.client_storage.get("user_name"))
+    # print(page.client_storage.get("user_name"))
     self.button = ft.Container(
+      height=55,
+      width = 260,
       border_radius = 25,
       expand = True,
       bgcolor = "#B9A9FC",
       content = ft.Text("Назад", color = "white", size = 15, font_family= "RussoOne-Regular",),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+      margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/purpose')
     )
@@ -27,15 +29,14 @@ class RentVarPage(ft.View):
           image_src="landing_back.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,40,20,20),
           content= 
           ft.Column(
             alignment = "spaceBetween",
             horizontal_alignment="center",
             controls = [
-              ft.Column(
-                alignment="center",
-                controls = [
+              ft.Container(
+                content = 
                   ft.Text("ДАВАЙТЕ УТОЧНИМ, \nЧТО ВАС ИНТЕРЕСУЕТ?", 
                           size = 16, 
                           text_align = "center",
@@ -44,11 +45,12 @@ class RentVarPage(ft.View):
                                                size=18, 
                                                weight=ft.FontWeight(ft.FontWeight.BOLD)
                                                ),
-                  )
-                ],
-                horizontal_alignment = "center"
+                  ),
+                margin=ft.margin.only(0,60,0,0)
+
               ),
               ft.Container(
+                height=285,
                 bgcolor = "#907CDC",
                 border_radius = 15,
                 content = ft.Column(
@@ -125,7 +127,7 @@ class RentVarPage(ft.View):
                   ),
                 ]
               ),
-              margin=ft.Margin(50,10,50,10),
+              margin=ft.Margin(50,0,50,10),
             ), 
               ft.Row(
                 controls = [

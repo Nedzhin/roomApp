@@ -7,15 +7,17 @@ class PurposePage(ft.View):
     self.page = page
     self.bgcolor = "#FFFFFF"
 
-    print(self.page.client_storage.get("user_name"))
-    print(self.page.client_storage.get("user_surname"))
+    # print(self.page.client_storage.get("user_name"))
+    # print(self.page.client_storage.get("user_surname"))
     self.button = ft.Container(
+      height=55,
+      width = 260,
       border_radius = 25,
       expand = True,
       bgcolor = "#B9A9FC",
       content = ft.Text("Назад", color = "white", size = 15, font_family= "RussoOne-Regular"),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      padding = ft.padding.only(left=10, right=10, top=0, bottom=0),
+      margin= ft.margin.only(40, 0,40, 20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/anketa')
     )
@@ -27,15 +29,14 @@ class PurposePage(ft.View):
           image_src="landing_back.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,20,20,20),
           content= 
           ft.Column(
             alignment = "spaceBetween",
             horizontal_alignment="center",
             controls = [
-              ft.Column(
-                alignment="center",
-                controls = [
+              ft.Container(
+                content = 
                   ft.Text("ДАВАЙТЕ УТОЧНИМ, \nЧТО ВАС ИНТЕРЕСУЕТ?", 
                           size = 16, 
                           text_align = "center",
@@ -45,13 +46,10 @@ class PurposePage(ft.View):
                                                weight=ft.FontWeight(ft.FontWeight.BOLD),
                                                font_family= "RussoOne-Regular",
                                                ),
-                  )
-                ],
-                horizontal_alignment = "center"
+                  ),
+                margin = ft.margin.all(40)      
               ),
-              ft.Row(
-                [ 
-                  ft.Container(
+              ft.Container(
                     ft.Text(
                       "Совместная аренда",
                       font_family= "RussoOne-Regular",
@@ -68,15 +66,9 @@ class PurposePage(ft.View):
                     height=65,
                     border_radius=25,
                     padding=ft.Padding(0,20,0,0),
-                    margin=ft.Margin(0,0,0,20),
-                  ),
-                ],
-                alignment= ft.MainAxisAlignment.CENTER,
-                vertical_alignment="center"
+                    margin=ft.Margin(0,25,0,15),
               ),
-              ft.Row(
-                [ 
-                  ft.Container(
+              ft.Container(
                     ft.Text(
                       "Соместные поездки",
                       font_family= "RussoOne-Regular",
@@ -94,10 +86,6 @@ class PurposePage(ft.View):
                     border_radius=25,
                     padding=ft.Padding(0,20,0,0),
                     margin=ft.Margin(0,0,0,20),
-                  ),
-                ],
-                alignment= ft.MainAxisAlignment.CENTER,
-                vertical_alignment="center"
               ),
               ft.Row(
               [
@@ -105,17 +93,17 @@ class PurposePage(ft.View):
                 src = "purpose1.png",
                 fit = ft.ImageFit.COVER,
                 animate_scale = ft.Animation(duration=600, curve=ft.AnimationCurve.EASE),
-                height=230,
+                height=180,
                 ),
               ],
               alignment= ft.MainAxisAlignment.CENTER,
-            ),
+              ),
               ft.Row(
-                controls = [
-                  self.button,
-                ],
-                alignment = "center"
+                [
+                self.button,
+                ]
               )
+            
             ]
           )
         )

@@ -13,7 +13,7 @@ def webapp_builder(username) -> InlineKeyboardBuilder:
         text="Open the Room app",
         #url = "https://medium.com/@ustsl/telegram-mini-applications-8a2602d6d4b8",
         web_app=WebAppInfo(
-             url=f'https://6db7-2a09-bac1-40c0-8-00-119-17.ngrok-free.app'
+             url=f'https://83d9-109-239-43-7.ngrok-free.app'
              )
     )
     return builder.as_markup()

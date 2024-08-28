@@ -159,12 +159,14 @@ class AnketaPage(ft.View):
     )
     
     self.button = ft.Container(
+        height=55,
+        width = 260,
         border_radius = 25,
         expand = True,
         bgcolor = "#B9A9FC",
         content = ft.Text("Продолжить заполнение", color = "white", size = 15, font_family= "RussoOne-Regular",),
         padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
-        margin= ft.margin.only(20, 0,20,40),
+        margin= ft.margin.only(20, 0,20,20),
         alignment = ft.alignment.center,
         on_click = lambda e: self.on_add_new(e)
       )
@@ -191,14 +193,39 @@ class AnketaPage(ft.View):
 
 
     self.result_search = ft.Container(
-      visible=False,
+      visible=True,
       height=150,
       content=ft.RadioGroup(
         
         content=ft.Column(
           height=100,
           scroll=True,
-
+          controls=[
+          ft.Radio(
+              label="САМАРА",
+              value="САМАРА",
+              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ), 
+            ft.Radio(
+              label="САНКТ-ПЕТЕРБУРГ",
+              value="САНКТ-ПЕТЕРБУРГ",
+              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="МОСКВА",
+              value="МОСКВА",
+              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="ЕКАТЕРИНБУРГ",
+              value="ЕКАТЕРИНБУРГ",
+              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+          ]
         ),
         on_change= get_value_city
       )
@@ -361,14 +388,78 @@ class AnketaPage(ft.View):
     self.edu_options = ["УЧУСЬ В ШКОЛЕ", "ЗАКОНЧИЛ ШКОЛУ, НЕ УЧУСЬ", "УЧУСЬ В БАКАЛАВРИАТЕ", "ЗАКОНЧИЛ БАКАЛАВРИАТ, НЕ УЧУСЬ", "УЧУСЬ В СПЕЦИАЛИТЕТЕ", "ЗАКОНЧИЛ СПЕЦИАЛИТЕТ, НЕ УЧУСЬ", "УЧУСЬ В МАГИСТРАТУРЕ", "ЗАКОНЧИЛ МАГИСТРАТУРУ, НЕ УЧУСЬ", "УЧУСЬ В АСПИРАНТУРЕ", "ЗАКОНЧИЛ АСПИРАНТУРУ"]
 
     self.result_search_edu = ft.Container(
-      visible=False,
-      height=350,
+      visible=True,
+      height=410,
+      width = 300,
       content=ft.RadioGroup(
         
         content=ft.Column(
-          height=100,
+          height=300,
+          width=250,
           scroll=True,
-
+          controls =[
+            ft.Radio(
+              label="УЧУСЬ В ШКОЛЕ",
+              value="УЧУСЬ В ШКОЛЕ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="ЗАКОНЧИЛ ШКОЛУ, НЕ УЧУСЬ",
+              value="ЗАКОНЧИЛ ШКОЛУ, НЕ УЧУСЬ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="УЧУСЬ В БАКАЛАВРИАТЕ",
+              value="УЧУСЬ В БАКАЛАВРИАТЕ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              width = 250,
+              label="ЗАКОНЧИЛ БАКАЛАВРИАТ, НЕ УЧУСЬ",
+              value="ЗАКОНЧИЛ БАКАЛАВРИАТ, НЕ УЧУСЬ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="УЧУСЬ В СПЕЦИАЛИТЕТЕ",
+              value="УЧУСЬ В СПЕЦИАЛИТЕТЕ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="ЗАКОНЧИЛ СПЕЦИАЛИТЕТ, НЕ УЧУСЬ",
+              value="ЗАКОНЧИЛ СПЕЦИАЛИТЕТ, НЕ УЧУСЬ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ), 
+            ft.Radio(
+              label="УЧУСЬ В МАГИСТРАТУРЕ",
+              value="УЧУСЬ В МАГИСТРАТУРЕ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="ЗАКОНЧИЛ МАГИСТРАТУРУ, НЕ УЧУСЬ",
+              value="ЗАКОНЧИЛ МАГИСТРАТУРУ, НЕ УЧУСЬ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="УЧУСЬ В АСПИРАНТУРЕ",
+              value="УЧУСЬ В АСПИРАНТУРЕ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label="ЗАКОНЧИЛ АСПИРАНТУРУ",
+              value="ЗАКОНЧИЛ АСПИРАНТУРУ",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+          ]
         ),
         on_change= get_value_edu
       )
@@ -385,7 +476,7 @@ class AnketaPage(ft.View):
             ft.Radio(
               label=matched_edu,
               value=matched_edu,
-              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             )
           )
@@ -443,8 +534,8 @@ class AnketaPage(ft.View):
       #modal= True,
       bgcolor="#FFFFFF",
       content=ft.Container(
-        height= 500,
-        width = 310,
+        height= 450,
+        width = 300,
         content= ft.Column([
           self.search_bar_edu,
           self.result_search_edu,
@@ -464,7 +555,38 @@ class AnketaPage(ft.View):
       print(e.control.value)
       e.page.client_storage.set("user_job", e.control.value)
     
-    self.job_options = ["ИТ", "ЭКОНОМИКА", "ИСКУССТВО", "ДИЗАЙН", "МЕДИЦИНА"]
+    self.job_options = job_names = [
+    "ЭКОНОМИКА И ФИНАНСЫ",
+    "ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ (IT)",
+    "ИСКУССТВО И КУЛЬТУРА",
+    "ОБРАЗОВАНИЕ И НАУКА",
+    "МЕДИЦИНА И ЗДРАВООХРАНЕНИЕ",
+    "ИНЖЕНЕРИЯ И ТЕХНОЛОГИИ",
+    "ЮРИСПРУДЕНЦИЯ",
+    "БИЗНЕС И ПРЕДПРИНИМАТЕЛЬСТВО",
+    "МАРКЕТИНГ И РЕКЛАМА",
+    "ЖУРНАЛИСТИКА И СМИ",
+    "ПОЛИТИКА И ГОСУДАРСТВЕННОЕ УПРАВЛЕНИЕ",
+    "СОЦИАЛЬНАЯ РАБОТА И БЛАГОТВОРИТЕЛЬНОСТЬ",
+    "СЕЛЬСКОЕ ХОЗЯЙСТВО",
+    "АРХИТЕКТУРА И СТРОИТЕЛЬСТВО",
+    "ПСИХОЛОГИЯ И ПСИХОТЕРАПИЯ",
+    "ФИЛОСОФИЯ И ГУМАНИТАРНЫЕ НАУКИ",
+    "СПОРТ И ФИЗИЧЕСКАЯ КУЛЬТУРА",
+    "ТУРИЗМ И ГОСТИНИЧНЫЙ БИЗНЕС",
+    "ТРАНСПОРТ И ЛОГИСТИКА",
+    "ХИМИЯ И БИОТЕХНОЛОГИИ",
+    "ЭКОЛОГИЯ И ОХРАНА ОКРУЖАЮЩЕЙ СРЕДЫ",
+    "ЭНЕРГЕТИКА И ПРИРОДНЫЕ РЕСУРСЫ",
+    "АВИАЦИЯ И КОСМОНАВТИКА",
+    "МОДА И ДИЗАЙН",
+    "МУЗЫКА И ЗВУКОРЕЖИССУРА",
+    "ТЕАТР И КИНО",
+    "ФАРМАЦЕВТИКА",
+    "ОБСЛУЖИВАНИЕ И РЕМОНТ ТЕХНИКИ",
+    "СЕКРЕТАРИАТ И АДМИНИСТРАТИВНАЯ РАБОТА",
+    "РЕМЕСЛА И РУЧНОЙ ТРУД"
+]
 
     self.result_search_job = ft.Container(
       visible=False,
@@ -474,7 +596,32 @@ class AnketaPage(ft.View):
         content=ft.Column(
           height=100,
           scroll=True,
-
+          controls = [
+            ft.Radio(
+              label= "",
+              value= "",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label= "",
+              value= "",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label= "",
+              value= "",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label= "",
+              value= "",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+          ]
         ),
         on_change= get_value_job
       )
@@ -491,7 +638,7 @@ class AnketaPage(ft.View):
             ft.Radio(
               label=matched_job,
               value=matched_job,
-              label_style= ft.TextStyle(color="#362D56", size=14, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             )
           )
@@ -704,7 +851,7 @@ class AnketaPage(ft.View):
           image_src="anketa_background.png", #if 1 else "women",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,20,20,20),
           content= 
           ft.Column(
             alignment = "spaceBetween",
@@ -728,6 +875,7 @@ class AnketaPage(ft.View):
                   ft.Container(
                     self.anketa_image,
                     on_click= lambda _: self.myfile.pick_files(),
+                    margin=ft.margin.only(20,0,0,0)
                   ),
                   ft.VerticalDivider(
                     width=20,
@@ -791,20 +939,21 @@ class AnketaPage(ft.View):
   #   print(data_json)
 
   def on_add_new(self, e):
-    try:
-      user_name = self.user_name.value
-      user_surname = self.user_surname.value
-      #user_gender  = self.user_gender.value
-      #print(user_name)
-      e.page.client_storage.set("user_name", user_name)
-      e.page.client_storage.set("user_surname", user_surname)
-      # add_new(
-      #   user_name = user_name
-      # )
-      self.reset_input()
-      e.page.go('/purpose')
-    except Exception as err:
-      print(err)
+    e.page.go('/purpose')
+    #try:
+    #   # user_name = self.user_name.value
+    #   # user_surname = self.user_surname.value
+    #   #user_gender  = self.user_gender.value
+    #   #print(user_name)
+    #   # e.page.client_storage.set("user_name", user_name)
+    #   # e.page.client_storage.set("user_surname", user_surname)
+    #   # add_new(
+    #   #   user_name = user_name
+    #   # )
+    #   # self.reset_input()
+    #   e.page.go('/purpose')
+    # except Exception as err:
+    #   print(err)
 
   def reset_input(self):
     self.user_name = ""

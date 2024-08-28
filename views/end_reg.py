@@ -10,12 +10,6 @@ class EndRegPage(ft.View):
     self.bgcolor = "#FFFFFF"
     self.navigation_bar = nav_bar
     self.navigation_bar.selected_index = 2
-    
-    self.lock = ft.Icon(
-      name="lock", 
-      scale = ft.Scale(2),
-      color="black"
-    )
 
 
     self.controls = [
@@ -25,41 +19,67 @@ class EndRegPage(ft.View):
           image_src="background_profile.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,30,20,20),
           content= 
           ft.Column(
-            alignment = "spaceBetween",
+            alignment = ft.MainAxisAlignment.START,
             horizontal_alignment="center",
             controls = [
+              ft.Row(
+                alignment=ft.MainAxisAlignment.END,
+                controls = [
+                  ft.Container(
+                    height=33,
+                    width = 33,
+                    content = ft.Icon(ft.icons.SETTINGS_OUTLINED, color= "#786086" ),
+                    bgcolor="white",
+                    border_radius=25,
+                    margin=ft.margin.only(0,0,10,0),
+                    on_click= lambda e: e.page.go("/settings_sample")
+                  ),
+                
+                ]
+              ),
+              
               ft.Container(
                 bgcolor="#FFFFFF",
-                border_radius=20,
+                width=350,
+                border_radius=25,
                 border= ft.border.all(1, ft.colors.GREY_100),
                 content=ft.Column(
-                  controls=[
-                    ft.Row(
-                      [
-                        ft.Row(
-                          [
-                            ft.Image(
-                              src="women.jpg",
-                              height=130,
-                              fit=ft.ImageFit.COVER,
-                              border_radius=15,
-                              ), 
-                          ]
-                        ),
+                   controls=[
+                     ft.Row(
+                       [
+                        ft.Image(
+                          src="women.jpg",
+                          height=130,
+                          fit=ft.ImageFit.COVER,
+                          border_radius=15,
+                        ), 
                         ft.Column(
-                          controls=[
-                            ft.Row(
+                           controls=[
+                             ft.Row(
                               controls=[
+                                ft.Container(
+                                  ft.Text(
+                                    "26",
+                                    style=ft.TextStyle(
+                                            color="#786086", 
+                                            size=15, 
+                                            weight=ft.FontWeight(ft.FontWeight.BOLD),
+                                            font_family="RussoOne-Regular",
+                                            ),
+                                  ),
+                                  margin=ft.Margin(5,0,5,0),
+                                ),
                                 ft.Container(
                                   ft.Text(
                                     "ОТЗЫВЫ",
                                     style=ft.TextStyle(
                                             color="#FFFFFF", 
                                             size=10, 
-                                            weight=ft.FontWeight(ft.FontWeight.BOLD)
+                                            weight=ft.FontWeight(ft.FontWeight.BOLD),
+                                            font_family="RussoOne-Regular",
                                             ),
                                     text_align="center",
                                   ),
@@ -68,41 +88,67 @@ class EndRegPage(ft.View):
                                   width=64,
                                   height=18,
                                   border_radius=25,
-                                  padding=ft.Padding(0,0,0,0),
-                                  margin=ft.Margin(0,0,0,20),
+                                  # padding=ft.Padding(0,0,0,0),
+                                  margin=ft.Margin(5,0,5,0),
                                 ),
-                              ]
-                            ),
+                                ft.Container(
+                                ft.Icon(
+                                    ft.icons.STAR,
+                                    color="#000000",
+                                    size=25,
+                                ),
+                                margin=ft.Margin(5,0,5,0),
+                              ), 
+                              ],
+                              alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+                             ),
                             ft.Text(
                               value="Alena",
                               style=ft.TextStyle(
                                         color="#362D56", 
                                         size=15, 
-                                        weight=ft.FontWeight(ft.FontWeight.BOLD)
+                                        weight=ft.FontWeight(ft.FontWeight.BOLD),
+                                        font_family="RussoOne-Regular",
                                       ),                          
                             ),
-                                           ft.Text(
-                                               value = "Vaceikina",
-                                               style=ft.TextStyle(
-                                                   color="#362D56", 
-                                                   size=15, 
-                                                   weight=ft.FontWeight(ft.FontWeight.BOLD)
-                                                ),
-                                           ),
-                                           ft.Container(
-                                               
-                                           )
-                                       ],
-                                       alignment="center",
-                                   ) 
-                                ],
-                                alignment= ft.MainAxisAlignment.CENTER
+                            ft.Text(
+                              value = "Vaceikina",
+                              style=ft.TextStyle(
+                                color="#362D56", 
+                                size=15, 
+                                weight=ft.FontWeight(ft.FontWeight.BOLD),
+                                font_family="RussoOne-Regular",
+                                ),
                             ),
-                            ft.Row(
+                            ft.Container(
+                                    ft.Text(
+                                    "СТАТУС",
+                                    style=ft.TextStyle(
+                                            color="#FFFFFF", 
+                                            size=15, 
+                                            weight=ft.FontWeight(ft.FontWeight.BOLD),
+                                            font_family="RussoOne-Regular",
+                                            ),
+                                    text_align="center",
+                                  ),
+                                  bgcolor="#B9A9FC",
+                                  width=160,
+                                  height=40,
+                                  border_radius=25,
+                                  padding=ft.Padding(0,10,0,0),
+                                  margin=ft.Margin(0,0,0,0),           
+                            ),                      
+                              ],
+                              alignment= ft.MainAxisAlignment.CENTER
+                            ),
+                           ],
+                           alignment=ft.MainAxisAlignment.SPACE_EVENLY
+                         ),
+                         ft.Row(
                                 [
                                     ft.TextField(
                                         hint_text="ГОРОД",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)),
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",),
                                         width=130,
                                         height = 30,
                                         text_align = "center",
@@ -113,13 +159,28 @@ class EndRegPage(ft.View):
                                     ),
                                     ft.TextField(
                                         hint_text="БЮДЖЕТ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=165, 
                                         height = 30,
                                         text_align = "center",
                                         border_radius=25,
                                         border_color = "#D9CAE0", 
                                         bgcolor = "#FFFFFF",
+                                    ),
+                                 ],
+                                 alignment= ft.MainAxisAlignment.CENTER
+                            ),
+                            ft.Row(
+                                [
+                                    ft.TextField(
+                                        hint_text="ДАТЫ АРЕНДЫ (ОТ-ДО)",
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        width=310,
+                                        height = 30,
+                                        text_align = "center", 
+                                        border_radius=25, 
+                                        bgcolor = "#FFFFFF",
+                                        border_color = "#D9CAE0",
                                     ),
                                 ],
                                 alignment= ft.MainAxisAlignment.CENTER
@@ -128,7 +189,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="СФЕРА ДЕЯТЕЛЬНОСТИ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -143,7 +204,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="ОБРАЗОВАНИЯ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -158,7 +219,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="ХОББИ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -173,7 +234,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="О СЕБЕ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 120,
                                         border_radius=25,
@@ -188,7 +249,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="ИЗМЕНИТЬ ПРОФИЛЬ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD)), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -200,13 +261,16 @@ class EndRegPage(ft.View):
                                 alignment= ft.MainAxisAlignment.CENTER,
                                 
                             ),
-                        ],
-                        alignment="center",
-                        horizontal_alignment="center"
-                    ),
-                    margin = ft.Margin(10,30,10,20),
-                    padding=ft.Padding(0,10,0,20),
-                )
+                #         ],
+                #         alignment="center",
+                #         horizontal_alignment="center"
+                #     ),
+
+                  ]
+                ),
+                    margin = ft.Margin(0,0,0,10),
+                    padding=ft.Padding(5,5,5,10),
+              ),
             ]
           )
         )

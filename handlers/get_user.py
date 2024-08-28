@@ -17,7 +17,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,9 +41,10 @@ async def get_user(request: Request):
         print("eemaa bolgan siaqty")
         try:
             result = await request.json()
-            print(result)
+            print("this is the result of the entering data",result)
             user_id = result['user_id']
             username = result['username']
+
             print(f'\n{datetime.now()}\n/get-data\nUser ID: {user_id}; Username: {username}')
             # db.add_user(result['user_id'], result['username'])
             # db.add_boost(result['user_id'], "power_click", 1)

@@ -13,16 +13,16 @@ from views.purpose import PurposePage
 from views.rent_var import RentVarPage
 from views.travel_var import TravelVarPage
 from views.rent_info import RentInfoPage
-#from views.rent_info_short import RentInfoShortPage
 from views.travel_info import TravelInfoPage
 from views.end_reg import EndRegPage
 from views.blind import BlindPage
 from views.ankets import AnketsPage
+from views.settings_sample import SettingsSamplePage
 
 def main(page: ft.Page):
   page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
   page.window.max_height = 820
-  page.window.max_width = 390
+  page.window.max_width = 410
   page.window.width = 390
   page.window.height = 790
 
@@ -51,10 +51,14 @@ def main(page: ft.Page):
                 ft.NavigationBarDestination(
                 icon=ft.icons.PERSON_ROUNDED,
                 label= "Мой профиль",
-                #bgcolor="#786086",
+                #bgcolor="black",
                 ),
               ],
 				    bgcolor="#F5E5FF",
+            #shadow_color= "black",
+            #indicator_color="black",
+            shadow_color="blue",
+            #overlay_color= {ft.ControlState.FOCUSED: ft.colors.GREEN, ft.ControlState.HOVERED: "grey", ft.ControlState.SELECTED: "white"},
             adaptive=True,
 				    height=65,
             on_change= change_navigation_destination
@@ -78,12 +82,12 @@ def main(page: ft.Page):
                 finally:
                     await session.close()
 
-  def router(route)->None:
+  async def router(route)->None:
     page.views.clear()
     if page.route == "/":
        page.go("/landing")
-       #user_data = fetch_user_data()
-       #print(user_data)
+      #  user_data = await fetch_user_data()
+      #  print(user_data)
 
        
     if page.route == "/landing":
@@ -130,6 +134,10 @@ def main(page: ft.Page):
       ankets = AnketsPage(page, nav_bar)
       page.views.append(ankets)
     
+    if page.route =="/settings_sample":
+       settings_sample = SettingsSamplePage(page, nav_bar)
+       page.views.append(settings_sample)
+    
     page.update()
     
 
@@ -143,7 +151,7 @@ if __name__ == '__main__':
     try:
         text = 'App started'
         print(f'{text:*^30}')
-        ft.app(target=main, view=None, port=8000)
+        ft.app(target=main, view=ft.WEB_BROWSER, port=3000)
     except:
         text = 'App not started'
         print(f'{text:*^30}')

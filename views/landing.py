@@ -15,12 +15,14 @@ class LandingPage(ft.View):
 
 
     self.button = ft.Container(
+      height=55,
+      width=260,
       border_radius = 25,
       expand = True,
       bgcolor = "#B9A9FC",
-      content = ft.Text("Перейти к анкете", color = "white", size = 10, font_family="RussoOne-Regular"),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      content = ft.Text("Перейти к анкете", color = "white", size = 15, font_family="RussoOne-Regular"),
+      padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+      margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go("/anketa")
     )
@@ -32,7 +34,7 @@ class LandingPage(ft.View):
           image_src="landing_back.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,20,20,20),
           content= 
           ft.Column(
             alignment = "spaceBetween",
@@ -44,8 +46,8 @@ class LandingPage(ft.View):
                   src = "landing1.png",
                   fit = ft.ImageFit.COVER,
                   animate_scale = ft.Animation(duration=600, curve=ft.AnimationCurve.EASE),
-                  # width=350,
-                  # height=280
+                   width=350,
+                   height=280
                   ),
                 ],
                 alignment = "center"
@@ -54,7 +56,7 @@ class LandingPage(ft.View):
                 alignment="center",
                 controls = [
                   ft.Text("Мы рады \nприветствовать вас \nв нашем приложении", 
-                          size = 18, 
+                          size = 22, 
                           text_align = "center",
                           font_family= "RussoOne-Regular",
                           style = ft.TextStyle(color="#362D56", 
@@ -69,7 +71,7 @@ class LandingPage(ft.View):
                 alignment="center",
                 controls = [
                   ft.Text("Давайте познакомимся поближе. \nДля этого предлагаем заполнить \nнебольшую анкету", 
-                          size = 13, 
+                          size = 15, 
                           text_align = "center",
                           font_family= "RussoOne-Regular",
                           style = ft.TextStyle(color="#362D56", 

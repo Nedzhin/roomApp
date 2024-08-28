@@ -44,26 +44,32 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://webappcontent.telegram.org/js/jquery.min.js"></script>
   <script>
-    //Telegram.WebApp.ready();
+    Telegram.WebApp.ready();
+    //window.Telegram.WebApp.expand();
+    let tg = window.Telegram.WebApp;
+    tg.expand();
 
     //var initData = Telegram.WebApp.initData || 'xyu';
-    //var initDataUnsafe = Telegram.WebApp.initDataUnsafe || 0;
-    alert("Your bro, can I take it to the skyy");
-
-    /*$.ajax('https://52ds1b7g-8080.euw.devtunnels.ms/get-data', {
+    //var initDataUnsafe = window.Telegram.WebApp.initDataUnsafe || 0;
+    //alert("Your bro, can I take it to the skyy");
+    //alert(tg.initDataUnsafe.user.username)
+    alert(tg.initDataUnsafe.user.username)
+    alert(tg.initDataUnsafe.user.id)
+    $.ajax('https://e343-109-239-43-7.ngrok-free.app/get-data', {
         type: 'POST',
-        data: `{
-          "user_id": ${initDataUnsafe.user.id},
-          "username": "${initDataUnsafe.user.username}"
-        }`,
+        data: JSON.stringify({
+        user_id: tg.initDataUnsafe.user.id,
+        username: tg.initDataUnsafe.user.username
+              }),
         dataType: 'json',
-        CORS: false,
         contentType:'application/json',
         success: function(data){
-          alert(data.json());
+          alert("happened");
           console.log(data)
-        }
-    })*/
+        },
+        error: function(xhr, status, error) {  
+          alert("An error occurred: " + error + "\nStatus: " + status + "\nResponse: " + xhr.responseText);    }
+    })
 </script>
 </head>
 

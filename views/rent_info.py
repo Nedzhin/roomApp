@@ -8,9 +8,10 @@ class RentInfoPage(ft.View):
     self.bgcolor = "#FFFFFF"
 
     self.rent_country = ft.Container(
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     content = ft.Text(
                       value="Страна аренды",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
@@ -23,9 +24,10 @@ class RentInfoPage(ft.View):
     )
     
     self.rent_city = ft.Container(
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     content = ft.Text(
                       value="Город аренды",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
@@ -40,10 +42,11 @@ class RentInfoPage(ft.View):
     self.rent_status = ft.Container(
                     content = ft.Text(
                       value="Статус на выбор",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     height=57,
                     width=153,
                     bgcolor="#FFFFFF",
@@ -55,10 +58,11 @@ class RentInfoPage(ft.View):
     self.rent_budget = ft.Container(
                     content = ft.Text(
                       value="Месячный бюджет \n(макс. цена)",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     height=57,
                     width=153,
                     bgcolor="#FFFFFF",
@@ -70,10 +74,11 @@ class RentInfoPage(ft.View):
     self.rent_region = ft.Container(
                     content = ft.Text(
                       value="Районы \nстанции метро",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     height=57,
                     width=153,
                     bgcolor="#FFFFFF",
@@ -85,10 +90,11 @@ class RentInfoPage(ft.View):
     self.rent_photos = ft.Container(
                     content = ft.Text(
                       value="Фотографии",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     height=57,
                     width=153,
                     bgcolor="#FFFFFF",
@@ -101,10 +107,11 @@ class RentInfoPage(ft.View):
     self.rent_dates = ft.Container(
                     content = ft.Text(
                       value="Даты аренды \n(от-до)",
-                      style= ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
+                      style= ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD),font_family= "RussoOne-Regular",),
                       text_align = "center",
                       
                     ),
+                    shadow=ft.BoxShadow(color="grey", blur_radius=10),
                     height=57,
                     width=153,
                     bgcolor="#FFFFFF",
@@ -116,22 +123,26 @@ class RentInfoPage(ft.View):
     
     self.button_back = ft.Container(
       border_radius = 25,
+      height=55,
+      width = 260,
       expand = True,
       bgcolor = "#B9A9FC",
       content = ft.Text("Назад", color = "white", size = 15, font_family= "RussoOne-Regular",),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+      margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/rent_var')
     )
 
     self.button_forth = ft.Container(
+      height=55,
+      width = 260,
       border_radius = 25,
       expand = True,
       bgcolor = "#B9A9FC",
       content = ft.Text("Далее", color = "white", size = 15, font_family= "RussoOne-Regular",),
-      padding = ft.padding.only(left=25, right=25, top=10, bottom=10),
-      margin= ft.margin.only(40, 0,40,40),
+      padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
+      margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/end_reg')
     )
@@ -687,33 +698,32 @@ class RentInfoPage(ft.View):
           image_src="landing_back.png",
           expand=True,
           image_fit=ft.ImageFit.COVER,
-          padding=ft.padding.only(40,40,40,40),
+          padding=ft.padding.only(20,0,20,0),
           content= 
           ft.Column(
-            alignment = "center",
+            alignment = ft.MainAxisAlignment.SPACE_EVENLY,
             horizontal_alignment="center",
             controls = [
-              ft.Column(
-                alignment="center",
-                controls = [
+              ft.Container(
+                content = 
                   ft.Text("ЕЩЕ НЕМНОГО И НАЧНЕМ", 
-                          size = 16, 
+                          size = 18, 
                           text_align = "center",
                           style = ft.TextStyle(color="#362D56", 
                                                size=18, 
                                                weight=ft.FontWeight(ft.FontWeight.BOLD),
                                                font_family= "RussoOne-Regular",
                                                ),
-                  )
-                ],
-                horizontal_alignment = "center"
-              ),
+                  ),
+                  margin=ft.margin.only(0,0,0,40)
+              ),     
               ft.Row(
                 [
                   self.rent_country,
                   self.rent_city
                 ],
-                alignment= ft.MainAxisAlignment.CENTER
+                alignment= ft.MainAxisAlignment.CENTER,
+              
               ),
               ft.Row(
                 [
