@@ -53,9 +53,10 @@
     //var initDataUnsafe = window.Telegram.WebApp.initDataUnsafe || 0;
     //alert("Your bro, can I take it to the skyy");
     //alert(tg.initDataUnsafe.user.username)
-    alert(tg.initDataUnsafe.user.username)
-    alert(tg.initDataUnsafe.user.id)
-    $.ajax('https://e343-109-239-43-7.ngrok-free.app/get-data', {
+
+    //alert(tg.initDataUnsafe.user.username)
+    //alert(tg.initDataUnsafe.user.id)
+    $.ajax('https://8bac-2a09-bac5-d5eb-2369-00-387-8.ngrok-free.app/get-data', {
         type: 'POST',
         data: JSON.stringify({
         user_id: tg.initDataUnsafe.user.id,
@@ -64,7 +65,7 @@
         dataType: 'json',
         contentType:'application/json',
         success: function(data){
-          alert("happened");
+          //alert("happened");
           console.log(data)
         },
         error: function(xhr, status, error) {  

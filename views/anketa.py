@@ -1,5 +1,5 @@
 import flet as ft
-from controllers.user_add_data import add_new
+import asyncio
 #from controllers.user_read_data import read_data
 # change (not important)
 class AnketaPage(ft.View):
@@ -11,7 +11,10 @@ class AnketaPage(ft.View):
     self.page = page
     self.bgcolor = "#FFFFFF"
     self.page.fonts = {"RussoOne-Regular":"fonts/RussoOne-Regular.ttf"}
-    
+
+    # if self.page.client_storage.contains_key("user_city"):
+    #   print("kotoche anketadan aldm:", self.page.client_storage.contains_key("user_city"))
+
     def resup( e: ft.FilePickerResultEvent):
       print(e.data)
       print('entered')
@@ -39,7 +42,9 @@ class AnketaPage(ft.View):
                     border_radius=15,
                     )
     
-   
+    def check(e):
+      print(self.user_name.value)
+
     self.user_name = ft.TextField(
                         hint_text = "Имя",
                         hint_style = ft.TextStyle(
@@ -51,7 +56,8 @@ class AnketaPage(ft.View):
                         height = 20,
                         border= 'none',
                         color="black",
-                        cursor_color='white'
+                        cursor_color='white',
+                        on_submit=check
                       )
     
     self.user_surname = ft.TextField(
@@ -157,7 +163,16 @@ class AnketaPage(ft.View):
                           padding=ft.Padding(0, 40,0,0),
                           on_click = lambda e: e.page.open(self.add_popup),
     )
-    
+
+    # def on_add_new(e, self):
+      
+
+    #   e.page.client_storage.set("user_name", self.user_name.value)
+    #   e.page.client_storage.set("user_surname", self.user_surname.value)
+    #   print("value of the field:", self.user_name.value)
+    #   print("value in the client storage:", self.page.client_storage.get("user_name"))
+    #   e.page.go('/purpose')
+
     self.button = ft.Container(
         height=55,
         width = 260,
@@ -168,7 +183,7 @@ class AnketaPage(ft.View):
         padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
         margin= ft.margin.only(20, 0,20,20),
         alignment = ft.alignment.center,
-        on_click = lambda e: self.on_add_new(e)
+        on_click = lambda e: asyncio.run(user_registration(e, self) )#lambda e: self.on_add_new(e)
       )
     
     ##################### Search bars with checkboxes ###################
@@ -188,7 +203,7 @@ class AnketaPage(ft.View):
 
     self.fake_city = ["america", "canada", "belarus", "almaty", "astana", "taraz", "aktobe"]
     def get_value_city(e):
-      print(e.control.value)
+      #print(e.control.value)
       e.page.client_storage.set("user_city", e.control.value)
 
 
@@ -589,7 +604,7 @@ class AnketaPage(ft.View):
 ]
 
     self.result_search_job = ft.Container(
-      visible=False,
+      visible=True,
       height=250,
       content=ft.RadioGroup(
         
@@ -598,26 +613,38 @@ class AnketaPage(ft.View):
           scroll=True,
           controls = [
             ft.Radio(
-              label= "",
-              value= "",
+              label= "МАРКЕТИНГ И РЕКЛАМА",
+              value= "МАРКЕТИНГ И РЕКЛАМА",
               label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             ),
             ft.Radio(
-              label= "",
-              value= "",
+              label= "ИНЖЕНЕРИЯ И ТЕХНОЛОГИИ",
+              value= "ИНЖЕНЕРИЯ И ТЕХНОЛОГИИ",
               label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             ),
             ft.Radio(
-              label= "",
-              value= "",
+              label= "ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ (IT)",
+              value= "ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ (IT)",
               label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             ),
             ft.Radio(
-              label= "",
-              value= "",
+              label= "АВИАЦИЯ И КОСМОНАВТИКА",
+              value= "АВИАЦИЯ И КОСМОНАВТИКА",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label= "МОДА И ДИЗАЙН",
+              value= "МОДА И ДИЗАЙН",
+              label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
+              active_color="#D2BAE1",
+            ),
+            ft.Radio(
+              label= "ПОЛИТИКА И ГОСУДАРСТВЕННОЕ УПРАВЛЕНИЕ",
+              value= "ПОЛИТИКА И ГОСУДАРСТВЕННОЕ УПРАВЛЕНИЕ",
               label_style= ft.TextStyle(color="#362D56", size=12, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family= "RussoOne-Regular",  ),
               active_color="#D2BAE1",
             ),
@@ -931,6 +958,15 @@ class AnketaPage(ft.View):
       )
     ]
 
+    async def user_registration(e, self):
+      e.page.client_storage.set("user_name", self.user_name.value)
+      e.page.client_storage.set("user_surname", self.user_surname.value)
+      print("value of the field:", self.user_name.value)
+      print("value in the client storage:", self.page.client_storage.get("user_name"))
+
+      e.page.go('/purpose')
+    
+
   # def did_mount(self):
   #   self.load()
 
@@ -938,8 +974,7 @@ class AnketaPage(ft.View):
   #   data_json = read_data()
   #   print(data_json)
 
-  def on_add_new(self, e):
-    e.page.go('/purpose')
+  
     #try:
     #   # user_name = self.user_name.value
     #   # user_surname = self.user_surname.value
@@ -955,6 +990,6 @@ class AnketaPage(ft.View):
     # except Exception as err:
     #   print(err)
 
-  def reset_input(self):
-    self.user_name = ""
-    self.update()
+  # def reset_input(self):
+  #   self.user_name = ""
+  #   self.update()

@@ -18,12 +18,14 @@ from fastapi.responses import JSONResponse
 from datetime import datetime
 from fastapi import Request, HTTPException
 from json import JSONDecodeError
+
 logging.basicConfig(level=logging.INFO)
+load_dotenv()
 
 TOKEN = os.environ["TELEGRAM_TOKEN"]
-BACK_URL = os.environ.get("BACK_URL")
+BACK_URL = os.environ["BACK_URL"]
 REACT_URL = os.environ["FRONT_URL"]
-
+print("front url:", REACT_URL)
 WEBHOOK_PATH = f"/bot/{TOKEN}"
 WEBHOOK_URL = BACK_URL + WEBHOOK_PATH
 
@@ -60,7 +62,7 @@ async def on_startup() -> None:
     firebase.create_database()
     print("started")
     webhook_url = WEBHOOK_URL
-    print(WEBHOOK_URL)
+    print("value gotton from env",WEBHOOK_URL)
     webhook_info = await bot.get_webhook_info()
     print(webhook_info.url)
     print(webhook_url)
@@ -79,13 +81,14 @@ async def webhook(update: dict[str, Any]) -> None:
 async def on_shutdown() -> None:
     logging.info(f"Shut down")
     await bot.session.close()
+    await bot.delete_webhook()
     
 def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.button(
         text="Open the Room app",
         web_app=WebAppInfo(
-             url = "https://ccbb4e72678f93.lhr.life"
+             url = REACT_URL
              )
     )
     return builder.as_markup()

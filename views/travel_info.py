@@ -1,7 +1,8 @@
 import flet as ft
-
+import aiohttp
+import asyncio
 class TravelInfoPage(ft.View):
-  def __init__(self, page: ft.Page) -> None:
+  def __init__(self, page: ft.Page, user_tid_back, BACK_URL) -> None:
     super().__init__(route = '/travel_info', padding = 0)
 
     self.page = page
@@ -112,7 +113,7 @@ class TravelInfoPage(ft.View):
       padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
       margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
-      on_click = lambda e: e.page.go('/end_reg')
+      on_click = lambda e: asyncio.run(end_registration(e,self, user_tid_back))
     )
 
 
@@ -640,3 +641,43 @@ class TravelInfoPage(ft.View):
         )
       )
     ]
+
+    async def end_registration(e, self, user_tid):
+      purpose_travel = str(self.page.client_storage.get("travel_purpose"))
+      country = self.page.client_storage.get("user_travel_country")
+      city = self.page.client_storage.get("user_travel_city")
+      status = "random poka" #self.page.client_storage.get("user_travel_status")
+      dates = self.page.client_storage.get("user_travel_dates")
+      longness = self.page.client_storage.get("user_longness_dates")
+      day_budget = self.page.client_storage.get("user_travel_budget")
+      #user_tid = str(user_tid_back)
+      print(type(purpose_travel))
+      print(country)
+      print(status)
+      print(city)
+      print(day_budget)
+      print(longness)
+      print(dates)
+
+      e.page.go('/end_reg')
+      try:
+        async with aiohttp.ClientSession() as session:
+          print(session)
+          #print("information:",e.page.client_storage.get("user_name"))
+          async with session.post(f'{BACK_URL}/purpose/travel/{user_tid}',
+                               json={"purpose_travel": purpose_travel, "country": country,
+        'city': city,
+        'status': status,
+        'dates': dates,
+        'longness': longness,
+        'day_budget': day_budget,
+        }) as response:
+                if response.status == 200:
+                  print("user rent created")
+                  #print(response.json())
+                  return await response.json()
+                else:
+                  return {"error": f"Failed to create user, status code: {response.reason}"}
+        
+      except aiohttp.ClientError as e:
+        return {"error": str(e)}

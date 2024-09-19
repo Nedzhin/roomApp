@@ -1,7 +1,8 @@
 import flet as ft
-
+import aiohttp
+import asyncio
 class RentInfoPage(ft.View):
-  def __init__(self, page: ft.Page) -> None:
+  def __init__(self, page: ft.Page, user_tid_back, BACK_URL) -> None:
     super().__init__(route = '/rent_info', padding = 0)
 
     self.page = page
@@ -133,6 +134,7 @@ class RentInfoPage(ft.View):
       alignment = ft.alignment.center,
       on_click = lambda e: e.page.go('/rent_var')
     )
+    
 
     self.button_forth = ft.Container(
       height=55,
@@ -144,7 +146,7 @@ class RentInfoPage(ft.View):
       padding = ft.padding.only(left=0, right=0, top=10, bottom=10),
       margin= ft.margin.only(40, 0,40,20),
       alignment = ft.alignment.center,
-      on_click = lambda e: e.page.go('/end_reg')
+      on_click = lambda e: asyncio.run(end_registration(e,self,user_tid= user_tid_back)) #lambda e: e.page.go('/end_reg')
     )
 
     ### Country chosing
@@ -774,3 +776,44 @@ class RentInfoPage(ft.View):
         )
       )
     ]
+    async def end_registration(e, self, user_tid):
+      purpose_rent = str(self.page.client_storage.get("rent_purpose"))
+      country = self.page.client_storage.get("user_rent_country")
+      city = self.page.client_storage.get("user_rent_city")
+      status = self.page.client_storage.get("user_rent_status")
+      month_budget = self.page.client_storage.get("user_rent_budget")
+      region = self.page.client_storage.get("user_rent_region")
+      photos = "random"
+      dates = self.page.client_storage.get("user_rent_dates")
+      #user_tid = str(user_tid_back)
+      print(type(purpose_rent))
+      print(country)
+      print(status)
+      print(city)
+      print(month_budget)
+      print(region)
+      print(dates)
+
+      e.page.go('/end_reg')
+      try:
+        async with aiohttp.ClientSession() as session:
+          print(session)
+          #print("information:",e.page.client_storage.get("user_name"))
+          async with session.post(f'{BACK_URL}/purpose/rent/{user_tid}',
+                               json={"purpose_rent": purpose_rent, "country": country,
+        'city': city,
+        'status': status,
+        'month_budget': month_budget,
+        'region': region,
+        'photos': photos,
+        'dates': dates}) as response:
+                if response.status == 200:
+                  print("user rent created")
+                  #print(response.json())
+                  return await response.json()
+                else:
+                  return {"error": f"Failed to create user, status code: {response.status}"}
+        
+      except aiohttp.ClientError as e:
+        return {"error": str(e)}
+      

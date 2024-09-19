@@ -7,13 +7,36 @@ import re
 class User(BaseModel):
     username: Optional[str]
     usersurname: Optional[str]
-    gender: Optional[Gender]
+    user_tid: Optional[str]
+    gender: Optional[str]
     birthday: Optional[str]
     city: Optional[str]
     education: Optional[str]
     job: Optional[str]
     info: Optional[str]
+    subscription: Optional[bool]
+    purpose: Optional[bool]
 
+
+class Rent(BaseModel):
+    purpose_rent: Optional[str] #= Field(example="nurseiit@gmail.com")
+    country: Optional[str] #= Field(example="male")
+    city: Optional[str]
+    status: Optional[str]
+    month_budget: Optional[str]
+    region: Optional[str]
+    photos: Optional[str]
+    dates: Optional[str]
+
+
+class Travel(BaseModel):
+    purpose_travel: Optional[str] #= Field(example="nurseiit@gmail.com")
+    country: Optional[str] #= Field(example="male")
+    city: Optional[str]
+    status: Optional[str]
+    dates: Optional[str]
+    longness: Optional[str]
+    day_budget: Optional[str]
     # @field_validator('username')
     # def validate_username(cls, v):
     #     if ' ' in v or not v:

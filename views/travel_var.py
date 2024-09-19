@@ -60,7 +60,7 @@ class TravelVarPage(ft.View):
                       ),
                       text_align="center",
                       ),
-                    on_click= lambda e: e.page.go("/travel_info"),
+                    on_click= lambda e: go_and_select_0(e),
                     bgcolor="#7160B3",
                     width=245,
                     height=90,
@@ -84,7 +84,7 @@ class TravelVarPage(ft.View):
                       ),
                       text_align="center",
                       ),
-                    on_click= lambda e: e.page.go("/travel_info"),
+                    on_click= lambda e: go_and_select_1(e),
                     bgcolor="#7160B3",
                     width=245,
                     height=110,
@@ -117,3 +117,14 @@ class TravelVarPage(ft.View):
         )
       )
     ]
+
+    def go_and_select_0(e):
+      e.page.client_storage.set("travel_purpose", 0)
+      print(e.page.client_storage.get("travel_purpose"))
+      e.page.go('/travel_info')
+      e.page.update()
+
+    def go_and_select_1(e):
+      e.page.client_storage.set("travel_purpose", 1)
+      e.page.go('/travel_info')
+      e.page.update()

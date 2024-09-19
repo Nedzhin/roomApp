@@ -85,7 +85,7 @@ class RentVarPage(ft.View):
                               ),
                               text_align="center",
                             ),
-                            on_click= lambda e: e.page.go("/rent_info"),
+                            on_click= lambda e: go_and_select_0(e),
                             bgcolor="#7160B3",
                             width=159,
                             height=55,
@@ -113,7 +113,7 @@ class RentVarPage(ft.View):
                             ),
                             text_align="center",
                           ),
-                          on_click= lambda e: e.page.go("/rent_info"),
+                          on_click= lambda e: go_and_select_1(e),
                           bgcolor="#7160B3",
                           width=159,
                           height=55,
@@ -140,3 +140,16 @@ class RentVarPage(ft.View):
         )
       )
     ]
+
+    def go_and_select_0(e):
+      e.page.client_storage.set("rent_purpose", 0)
+      print(e.page.client_storage.get("rent_purpose"))
+      e.page.go('/rent_info')
+      e.page.update()
+
+    def go_and_select_1(e):
+      e.page.client_storage.set("rent_purpose", 1)
+      e.page.go('/rent_info')
+      e.page.update()
+
+

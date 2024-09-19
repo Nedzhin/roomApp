@@ -6,20 +6,37 @@ import re
 class User(BaseModel):
     username: str #= Field(example="tawfiq")
     usersurname: str #= Field(example="nurseiit@gmail.com")
-    gender: Gender #= Field(example="male")
+    user_tid: str
+    gender: str #= Field(example="male")
     birthday: str #= Field(example="19/05/2006")
     city: str
     education: str
     job: str
     info: str
-    #password: str #= Field(examples="nskmasdmsakm")
-    #age: int #= Field(examples=21)
+    subscription: bool
+    purpose: bool
+
+
+class Rent(BaseModel):
+    purpose_rent: str 
+    country: str 
+    city: str
+    status: str
+    month_budget: str
+    region: str
+    photos: str
+    dates: str
+
+
+class Travel(BaseModel):
+    purpose_travel: str 
+    country: str 
+    city: str
+    status: str
+    dates: str
+    longness: str
+    day_budget: str
     
-    
-    # city: str = Field(example="Moscow")
-    # education: str = Field(example="Study")
-    # job: str = Field(example="IT")
-    # info: str = Field(example="I love solving maths problems")
 
     # class Config:
     #     schema_extra = {

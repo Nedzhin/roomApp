@@ -1,9 +1,12 @@
 import flet as ft
-
+import aiohttp
 
 class EndRegPage(ft.View):
 
-  def __init__(self, page: ft.Page, nav_bar: ft.NavigationBar) -> None:
+  
+
+
+  def __init__(self, page: ft.Page, nav_bar: ft.NavigationBar, infos: dict, aim) -> None:
     super().__init__(route = '/end_reg', padding = 0)
 
     self.page = page
@@ -11,6 +14,25 @@ class EndRegPage(ft.View):
     self.navigation_bar = nav_bar
     self.navigation_bar.selected_index = 2
 
+    self.profile_budget = ft.TextField(
+                                        hint_text= "", #infos["purpose"][0]["month_budget"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        width=165, 
+                                        height = 30,
+                                        text_align = "center",
+                                        border_radius=25,
+                                        border_color = "#D9CAE0", 
+                                        bgcolor = "#FFFFFF",
+                                    )
+    
+    if not aim:
+      self.profile_budget.hint_text = infos["purpose"][0]["month_budget"]
+    else:
+      self.profile_budget.hint_text = infos["purpose"][0]["day_budget"]
+    # self.user_infos = self.get_information
+    # results = self.get_information()
+    # print(results)
+    # print(self.user_infos)
 
     self.controls = [
       ft.SafeArea(
@@ -83,7 +105,7 @@ class EndRegPage(ft.View):
                                             ),
                                     text_align="center",
                                   ),
-                                  on_click= lambda e: e.page.go("/arenda_2"),
+                                  on_click= lambda e: e.page.go("/ankets"),
                                   bgcolor="#B9A9FC",
                                   width=64,
                                   height=18,
@@ -103,7 +125,7 @@ class EndRegPage(ft.View):
                               alignment=ft.MainAxisAlignment.SPACE_EVENLY,
                              ),
                             ft.Text(
-                              value="Alena",
+                              value= infos["anketa"]["username"],
                               style=ft.TextStyle(
                                         color="#362D56", 
                                         size=15, 
@@ -112,7 +134,7 @@ class EndRegPage(ft.View):
                                       ),                          
                             ),
                             ft.Text(
-                              value = "Vaceikina",
+                              value = infos["anketa"]["usersurname"],
                               style=ft.TextStyle(
                                 color="#362D56", 
                                 size=15, 
@@ -122,10 +144,10 @@ class EndRegPage(ft.View):
                             ),
                             ft.Container(
                                     ft.Text(
-                                    "СТАТУС",
+                                    infos["purpose"][0]["status"],
                                     style=ft.TextStyle(
                                             color="#FFFFFF", 
-                                            size=15, 
+                                            size=10, 
                                             weight=ft.FontWeight(ft.FontWeight.BOLD),
                                             font_family="RussoOne-Regular",
                                             ),
@@ -147,8 +169,8 @@ class EndRegPage(ft.View):
                          ft.Row(
                                 [
                                     ft.TextField(
-                                        hint_text="ГОРОД",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",),
+                                        hint_text=infos["anketa"]["city"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",),
                                         width=130,
                                         height = 30,
                                         text_align = "center",
@@ -157,24 +179,15 @@ class EndRegPage(ft.View):
                                         color = "black",
                                         bgcolor="#FFFFFF"
                                     ),
-                                    ft.TextField(
-                                        hint_text="БЮДЖЕТ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
-                                        width=165, 
-                                        height = 30,
-                                        text_align = "center",
-                                        border_radius=25,
-                                        border_color = "#D9CAE0", 
-                                        bgcolor = "#FFFFFF",
-                                    ),
+                                    self.profile_budget,
                                  ],
                                  alignment= ft.MainAxisAlignment.CENTER
                             ),
                             ft.Row(
                                 [
                                     ft.TextField(
-                                        hint_text="ДАТЫ АРЕНДЫ (ОТ-ДО)",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        hint_text=infos["purpose"][0]["dates"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -188,8 +201,8 @@ class EndRegPage(ft.View):
                             ft.Row(
                                 [
                                     ft.TextField(
-                                        hint_text="СФЕРА ДЕЯТЕЛЬНОСТИ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        hint_text=infos["anketa"]["job"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -203,8 +216,8 @@ class EndRegPage(ft.View):
                             ft.Row(
                                 [
                                     ft.TextField(
-                                        hint_text="ОБРАЗОВАНИЯ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        hint_text=infos["anketa"]["education"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -218,23 +231,8 @@ class EndRegPage(ft.View):
                             ft.Row(
                                 [
                                     ft.TextField(
-                                        hint_text="ХОББИ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
-                                        width=310,
-                                        height = 30,
-                                        text_align = "center", 
-                                        border_radius=25, 
-                                        bgcolor = "#FFFFFF",
-                                        border_color = "#D9CAE0",
-                                    ),
-                                ],
-                                alignment= ft.MainAxisAlignment.CENTER
-                            ),
-                            ft.Row(
-                                [
-                                    ft.TextField(
-                                        hint_text="О СЕБЕ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        hint_text=infos["anketa"]["info"],
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 120,
                                         border_radius=25,
@@ -249,7 +247,7 @@ class EndRegPage(ft.View):
                                 [
                                     ft.TextField(
                                         hint_text="ИЗМЕНИТЬ ПРОФИЛЬ",
-                                        hint_style = ft.TextStyle(color="#362D56", size=13, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
+                                        hint_style = ft.TextStyle(color="#362D56", size=11, weight=ft.FontWeight(ft.FontWeight.BOLD), font_family="RussoOne-Regular",), 
                                         width=310,
                                         height = 30,
                                         text_align = "center", 
@@ -278,12 +276,3 @@ class EndRegPage(ft.View):
       self.navigation_bar
     ]
 
-  # def change_navigation_destination(self, e):
-  #   if e.control.selected_index == 0:
-  #     e.page.go('/blind')
-  #   elif e.control.selected_index == 1:
-  #     e.page.go('/ankets')
-  #   elif e.control.selected_index == 2:
-  #     e.page.go('/end_reg')
-  
-  #   self.update()

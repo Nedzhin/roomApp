@@ -1,14 +1,18 @@
 import flet as ft
-
+import aiohttp
+import asyncio
 class PurposePage(ft.View):
-  def __init__(self, page: ft.Page) -> None:
+  def __init__(self, page: ft.Page, user_tid_back, BACK_URL) -> None:
     super().__init__(route = '/purpose', padding = 0)
 
     self.page = page
     self.bgcolor = "#FFFFFF"
 
-    # print(self.page.client_storage.get("user_name"))
-    # print(self.page.client_storage.get("user_surname"))
+    #print(self.page.client_storage.get("user_city"))
+    #print(self.page.client_storage.get("user_surname"))
+    def goto(e,self):
+      print("gotton value baby: ",self.page.client_storage.get("user_name"))
+      e.page.go('/anketa')
     self.button = ft.Container(
       height=55,
       width = 260,
@@ -19,7 +23,7 @@ class PurposePage(ft.View):
       padding = ft.padding.only(left=10, right=10, top=0, bottom=0),
       margin= ft.margin.only(40, 0,40, 20),
       alignment = ft.alignment.center,
-      on_click = lambda e: e.page.go('/anketa')
+      on_click = lambda e: goto(e,self)
     )
 
     self.controls = [
@@ -60,7 +64,7 @@ class PurposePage(ft.View):
                               ),
                       text_align="center",
                     ),
-                    on_click= lambda e: e.page.go("/rent_var"),
+                    on_click= lambda e: asyncio.run(user_registration_rent(e,self)),#e.page.go(),
                     bgcolor="#907CDC",
                     width=241,
                     height=65,
@@ -79,7 +83,7 @@ class PurposePage(ft.View):
                               ),
                       text_align="center",
                     ),
-                    on_click= lambda e: e.page.go("/travel_var"),
+                    on_click= lambda e: asyncio.run( user_registration_travel(e, self) ),
                     bgcolor="#907CDC",
                     width=241,
                     height=65,
@@ -109,3 +113,76 @@ class PurposePage(ft.View):
         )
       )
     ]
+    async def user_registration_rent(e, self):
+      user_name = self.page.client_storage.get("user_name")
+      user_surname = self.page.client_storage.get("user_surname")
+      user_tid = str(user_tid_back)
+      #user_gender = self.page.client_storage.get("user_gender")
+      user_birthday = self.page.client_storage.get("user_birthday")
+      user_city = self.page.client_storage.get("user_city")
+      user_education = self.page.client_storage.get("user_edu")
+      user_job = self.page.client_storage.get("user_job")
+      user_additional = self.page.client_storage.get("user_additional")
+
+
+      e.page.go("/rent_var")
+      try:
+        async with aiohttp.ClientSession() as session:
+          print(session)
+          #print("information:",e.page.client_storage.get("user_name"))
+          async with session.post(f'{BACK_URL}/user',
+                               json={"username": user_name, "usersurname": user_surname, 'user_tid': user_tid,
+        'gender': "male",
+        'birthday': user_birthday,
+        'city': user_city,
+        'education': user_education,
+        'job': user_job,
+        'info': user_additional,
+        'subscription': False,
+        'purpose': False}) as response:
+                if response.status == 200:
+                  print("user created")
+                  #print(response.json())
+                  return await response.json()
+                else:
+                  return {"error": f"Failed to create user, status code: {response.status}"}
+        
+      except aiohttp.ClientError as e:
+        return {"error": str(e)}
+      
+    async def user_registration_travel(e, self):
+      user_name = self.page.client_storage.get("user_name")
+      user_surname = self.page.client_storage.get("user_surname")
+      user_tid = str(user_tid_back)
+      user_gender = self.page.client_storage.get("user_gender")
+      user_birthday = self.page.client_storage.get("user_birthday")
+      user_city = self.page.client_storage.get("user_city")
+      user_education = self.page.client_storage.get("user_edu")
+      user_job = self.page.client_storage.get("user_job")
+      user_additional = self.page.client_storage.get("user_additional")
+
+
+      e.page.go("/travel_var")
+      try:
+        async with aiohttp.ClientSession() as session:
+          print(session)
+          #print("information:",e.page.client_storage.get("user_name"))
+          async with session.post(f'{BACK_URL}/user',
+                               json={"username": user_name, "usersurname": user_surname, 'user_tid': user_tid,
+        'gender': user_gender,
+        'birthday': user_birthday,
+        'city': user_city,
+        'education': user_education,
+        'job': user_job,
+        'info': user_additional,
+        'subscription': False,
+        'purpose': True}) as response:
+                if response.status == 200:
+                  print("user created")
+                  #print(response.json())
+                  return await response.json()
+                else:
+                  return {"error": f"Failed to create user, status code: {response.status}"}
+        
+      except aiohttp.ClientError as e:
+        return {"error": str(e)}

@@ -1,4 +1,6 @@
 import flet as ft
+import aiohttp
+import asyncio
 
 class AnketsPage(ft.View):
 
@@ -12,14 +14,14 @@ class AnketsPage(ft.View):
   
 #     self.update()
 
-  def __init__(self, page: ft.Page, nav_bar: ft.NavigationBar) -> None:
+  def __init__(self, page: ft.Page, nav_bar: ft.NavigationBar, result_profiles) -> None:
     super().__init__(route = '/ankets', padding = 0)
 
     self.page = page
     self.bgcolor = "#FFFFFF"
    
     self.navigation_bar = nav_bar
-
+    print("Ankestan shgarp jatsngo koroche:", len(result_profiles), result_profiles)
     self.example_profile = ft.Container(
                     bgcolor="#FFFFFF",
                     border_radius=20,
@@ -181,8 +183,8 @@ class AnketsPage(ft.View):
                     margin = ft.Margin(10,10,10,5),
                     padding=ft.Padding(0,10,0,10),
                 )
- 
 
+    self.column_results = ft.Column()
     self.controls = [
       ft.SafeArea(
         expand = True,
@@ -205,13 +207,22 @@ class AnketsPage(ft.View):
                             alignment=ft.MainAxisAlignment.END,
                             controls = [
                                 ft.Container(
+                                  width= 220,
+                                  content=ft.TextField(
+                                    border_color="white",
+                                    border_radius=25,
+                                    hint_text="Search",
+                                    bgcolor="white"
+                                  )
+                                ),
+                                ft.Container(
                                 height=33,
                                 width = 33,
                                 content = ft.Icon(ft.icons.FILTER_1, color= "#786086" ),
                                 bgcolor="white",
                                 border_radius=25,
                                 margin=ft.margin.only(0,0,10,0),
-                                on_click= lambda e: e.page.go("/settings_sample")
+                                on_click= lambda e: e.page.go("/filter_users")
                                 ),
                                 ft.Container(
                                 height=33,
@@ -232,3 +243,4 @@ class AnketsPage(ft.View):
             )
         )
     ]
+    
